@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="AutoMapper\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Swagger\" />
+    <Folder Include="Services\Interfaces\" />
+  </ItemGroup>
+
+
+</Project>

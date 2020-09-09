@@ -28,22 +28,19 @@ namespace Collaborative.Infra.Mappings
                 .Property(x => x.Phone2)
                 .HasColumnType("VARCHAR(10)")
                 .HasMaxLength(10)
-                .HasDefaultValue(null)
-                .IsRequired();
+                .HasDefaultValue(null);
 
             builder
                 .Property(x => x.CPF)
                 .HasDefaultValue(null)
                 .HasColumnType("VARCHAR(11)")
-                .HasMaxLength(11)
-                .IsRequired();
+                .HasMaxLength(11);
 
             builder
                 .Property(x => x.CNPJ)
                 .HasDefaultValue(null)
                 .HasColumnType("VARCHAR(14)")
-                .HasMaxLength(14)
-                .IsRequired();
+                .HasMaxLength(14);
 
             builder
                 .Property(x => x.Mail)
@@ -59,8 +56,13 @@ namespace Collaborative.Infra.Mappings
 
             builder
                 .Property(x => x.ClosingDate)
-                .HasDefaultValue(null)
-                .IsRequired();
+                .HasDefaultValue(null);
+
+            builder
+                .HasOne(x => x.Collaborative)
+                .WithMany(x => x.Collaborators)
+                .HasForeignKey(x => x.CollaborativeId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

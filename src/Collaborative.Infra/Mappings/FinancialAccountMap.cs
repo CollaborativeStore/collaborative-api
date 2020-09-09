@@ -24,8 +24,12 @@ namespace Collaborative.Infra.Mappings
             builder
                 .Property(x => x.Close)
                 .HasColumnType("DATETIME2")
-                .HasDefaultValue(null)
-                .IsRequired();
+                .HasDefaultValue(null);
+
+            builder
+                .HasOne(x => x.Collaborative)
+                .WithMany(x => x.FinancialAccounts)
+                .HasForeignKey(x => x.CollaborativeId);
         }
     }
 }

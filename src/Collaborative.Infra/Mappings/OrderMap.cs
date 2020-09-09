@@ -27,8 +27,17 @@ namespace Collaborative.Infra.Mappings
 
             builder
                 .Property(x => x.Total)
-                .HasColumnType("DECIMAL(5,2)")
-                .IsRequired();
+                .HasColumnType("DECIMAL(5,2)");
+
+            builder
+                .HasOne(x => x.Collaborative)
+                .WithMany(x => x.Orders)
+                .HasForeignKey(x => x.CollaborativeId);
+
+            builder
+                .HasOne(x => x.Product)
+                .WithMany(x => x.Orders)
+                .HasForeignKey(x => x.ProductId);
         }
     }
 }

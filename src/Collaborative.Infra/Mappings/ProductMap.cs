@@ -30,13 +30,27 @@ namespace Collaborative.Infra.Mappings
             builder
                 .Property(x => x.DeletionDate)
                 .HasColumnType("DATETIME2")
-                .HasDefaultValue(null)
-                .IsRequired();
+                .HasDefaultValue(null);
 
             builder
                 .Property(x => x.UnityPrice)
                 .HasColumnType("DECIMAL(5,2)")
                 .IsRequired();
+
+            builder
+                .HasOne(x => x.Collaborator)
+                .WithMany(x => x.Products)
+                .HasForeignKey(x => x.CollaboratorId);
+
+            builder
+                .HasOne(x => x.Stock)
+                .WithMany(x => x.Products)
+                .HasForeignKey(x => x.StockId);
+
+            builder
+                .HasOne(x => x.Order)
+                .WithMany(x => x.Products)
+                .HasForeignKey(x => x.OrderId);
         }
     }
 }

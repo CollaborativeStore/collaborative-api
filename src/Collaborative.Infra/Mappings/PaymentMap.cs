@@ -9,7 +9,28 @@ namespace Collaborative.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<Payment> builder)
         {
-            throw new NotImplementedException();
+            builder
+                .ToTable("Payment");
+
+            builder
+                .HasKey(x => x.Id);
+
+            builder
+                .Property(x => x.Paid)
+                .HasColumnType("DATETIME2")
+                .HasDefaultValue(null)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Total)
+                .HasColumnType("DOUBLE")
+                .IsRequired();
+
+            builder
+                .Property(x => x.Details)
+                .HasColumnType("VARCHAR(200)")
+                .HasMaxLength(200)
+                .IsRequired();
         }
     }
 }

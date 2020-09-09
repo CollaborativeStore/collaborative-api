@@ -1,6 +1,7 @@
 ﻿using Collaborative.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Collaborative.Infra.Mappings
 {
@@ -8,7 +9,23 @@ namespace Collaborative.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<FinancialAccount> builder)
         {
-            throw new System.NotImplementedException();
+            builder
+                .ToTable("FinancialAccount");
+
+            builder
+                .HasKey(x => x.Id);
+
+            builder
+                .Property(x => x.Open)
+                .HasColumnType("DATETIME2")
+                .HasDefaultValue(DateTime.Now)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Close)
+                .HasColumnType("DATETIME2")
+                .HasDefaultValue(null)
+                .IsRequired();
         }
     }
 }

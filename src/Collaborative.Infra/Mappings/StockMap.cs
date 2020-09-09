@@ -9,7 +9,16 @@ namespace Collaborative.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<Stock> builder)
         {
-            throw new NotImplementedException();
+            builder
+                .ToTable("Stock");
+
+            builder
+                .HasKey(x => x.Id);
+
+            builder
+                .Property(x => x.Quantity)
+                .HasColumnType("INT")
+                .IsRequired();
         }
     }
 }

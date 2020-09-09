@@ -12,9 +12,8 @@ namespace Collaborative.Domain.Models
 
         public int CollaborativeId { get; set; }
         public Collaborative Collaborative { get; set; }
-        public int StockId { get; set; }
-        public Stock Stock { get; set; }
 
         public List<Payment> Payments { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

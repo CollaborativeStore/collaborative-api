@@ -62,7 +62,7 @@ namespace Collaborative.Infra.Mappings
                 .HasOne(x => x.Collaborative)
                 .WithMany(x => x.Collaborators)
                 .HasForeignKey(x => x.CollaborativeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

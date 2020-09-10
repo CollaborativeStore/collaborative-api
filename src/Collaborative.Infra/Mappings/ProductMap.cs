@@ -40,17 +40,20 @@ namespace Collaborative.Infra.Mappings
             builder
                 .HasOne(x => x.Collaborator)
                 .WithMany(x => x.Products)
-                .HasForeignKey(x => x.CollaboratorId);
+                .HasForeignKey(x => x.CollaboratorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(x => x.Stock)
                 .WithMany(x => x.Products)
-                .HasForeignKey(x => x.StockId);
+                .HasForeignKey(x => x.StockId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(x => x.Order)
                 .WithMany(x => x.Products)
-                .HasForeignKey(x => x.OrderId);
+                .HasForeignKey(x => x.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

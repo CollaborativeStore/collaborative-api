@@ -20,6 +20,8 @@ namespace Collaborative.Infra.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityContext).Assembly);
+
             modelBuilder.ApplyConfiguration(new CollaborativeMap());
             modelBuilder.ApplyConfiguration(new CollaboratorMap());
             modelBuilder.ApplyConfiguration(new FinancialAccountMap());
@@ -27,6 +29,8 @@ namespace Collaborative.Infra.Context
             modelBuilder.ApplyConfiguration(new PaymentMap());
             modelBuilder.ApplyConfiguration(new ProductMap());
             modelBuilder.ApplyConfiguration(new StockMap());
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

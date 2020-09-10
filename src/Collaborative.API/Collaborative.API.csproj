@@ -12,5 +12,17 @@
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Collaborative.Domain\Collaborative.Domain.csproj" />
+    <ProjectReference Include="..\Collaborative.Infra\Collaborative.Infra.csproj" />
+  </ItemGroup>
+
 
 </Project>

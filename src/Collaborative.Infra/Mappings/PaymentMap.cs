@@ -22,7 +22,7 @@ namespace Collaborative.Infra.Mappings
 
             builder
                 .Property(x => x.Total)
-                .HasColumnType("DOUBLE")
+                .HasColumnType("DECIMAL(6,2)")
                 .IsRequired();
 
             builder
@@ -34,12 +34,14 @@ namespace Collaborative.Infra.Mappings
             builder
                 .HasOne(x => x.FinancialAccount)
                 .WithMany(x => x.Payments)
-                .HasForeignKey(x => x.FinancialAccountId);
+                .HasForeignKey(x => x.FinancialAccountId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(x => x.Order)
                 .WithMany(x => x.Payments)
-                .HasForeignKey(x => x.OrderId);
+                .HasForeignKey(x => x.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

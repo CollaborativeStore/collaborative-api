@@ -29,7 +29,8 @@ namespace Collaborative.Infra.Mappings
             builder
                 .HasOne(x => x.Collaborative)
                 .WithMany(x => x.FinancialAccounts)
-                .HasForeignKey(x => x.CollaborativeId);
+                .HasForeignKey(x => x.CollaborativeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

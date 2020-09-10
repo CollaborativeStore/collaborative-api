@@ -13,6 +13,7 @@ namespace Collaborative.Domain.Models
 
         public int CollaboratorId { get; set; }
         public Collaborator Collaborator { get; set; }
+
         public int StockId { get; set; }
         public Stock Stock { get; set; }
 

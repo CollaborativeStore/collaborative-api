@@ -27,7 +27,8 @@ namespace Collaborative.Infra.Mappings
 
             builder
                 .Property(x => x.Total)
-                .HasColumnType("DECIMAL(5,2)");
+                .HasColumnType("DECIMAL(5,2)")
+                .HasDefaultValue(0);
 
             builder
                 .HasOne(x => x.Collaborative)

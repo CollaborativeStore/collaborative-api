@@ -36,5 +36,4 @@ namespace Collaborative.Domain.Validation.FinancialAccountValidation
             return financialAccountRepository?.Id != financial.Id ? false : true;
         }
     }
-    }
 }

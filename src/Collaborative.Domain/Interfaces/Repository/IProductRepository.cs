@@ -10,5 +10,6 @@ namespace Collaborative.Domain.Interfaces.Repository
         Task<IEnumerable<Product>> GetAllDeletedAsync();
         Task<Product> GetByIdAsync(int id);
         Task<IEnumerable<Product>> GetAllByCollaboratorIdAsync(int id);
+        Task<Product> GetByNameAsync(string name);
     }
 }

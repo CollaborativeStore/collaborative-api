@@ -8,5 +8,6 @@ namespace Collaborative.Domain.Interfaces.Repository
     {
         Task<IEnumerable<Collab>> GetAllAsync();
         Task<Collab> GetByIdAsync(int id);
+        Task<IEnumerable<Collab>> GetAllClosed();
     }
 }

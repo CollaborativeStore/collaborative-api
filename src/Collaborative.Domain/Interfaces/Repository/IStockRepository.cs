@@ -8,6 +8,6 @@ namespace Collaborative.Domain.Interfaces.Repository
     {
         Task<IEnumerable<Stock>> GetAllAsync();
         Task<Stock> GetByIdAsync(int id);
-        Task<Stock> GetByProductIdAsync(int id);
+        Task<Stock> GetByCollaborativeIdAsync(int id);
     }
 }

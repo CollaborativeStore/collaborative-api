@@ -10,5 +10,6 @@ namespace Collaborative.Domain.Interfaces.Repository
         Task<Order> GetByIdAsync(int id);
         Task<IEnumerable<Order>> GetAllByCollaborativeIdAsync(int id);
         Task<IEnumerable<Order>> GetAllByProductIdAsync(int id);
+        Task<IEnumerable<Order>> GetAllByClosedStatus();
     }
 }

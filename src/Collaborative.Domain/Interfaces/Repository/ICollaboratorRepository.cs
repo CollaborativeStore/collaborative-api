@@ -7,8 +7,8 @@ namespace Collaborative.Domain.Interfaces.Repository
     public interface ICollaboratorRepository
     {
         Task<IEnumerable<Collaborator>> GetAllAsync();
+        Task<IEnumerable<Collaborator>> GetAllClosed();
         Task<Collaborator> GetByIdAsync(int id);
         Task<IEnumerable<Collaborator>> GetAllByCollaborativeIdAsync(int id);
-        Task<Collaborator> GetByProductIdAsync();
     }
 }

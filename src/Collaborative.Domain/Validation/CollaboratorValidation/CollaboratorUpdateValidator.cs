@@ -17,6 +17,11 @@ namespace Collaborative.Domain.Validation.CollaboratorValidation
         {
             _collaboratorRepository = collaboratorRepository;
 
+            RuleFor(x => x.Id)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Id cannot be null or empty");
+
             RuleFor(x => x.Name)
                 .NotNull()
                 .NotEmpty()

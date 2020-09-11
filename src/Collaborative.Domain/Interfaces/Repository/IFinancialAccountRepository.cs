@@ -10,5 +10,6 @@ namespace Collaborative.Domain.Interfaces.Repository
         Task<IEnumerable<FinancialAccount>> GetAllClosedAsync();
         Task<FinancialAccount> GetByIdAsync(int id);
         Task<IEnumerable<FinancialAccount>> GetAllByCollaborativeIdAsync(int id);
+        Task<FinancialAccount> GetByName(string name);
     }
 }

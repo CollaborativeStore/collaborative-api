@@ -16,6 +16,12 @@ namespace Collaborative.Infra.Mappings
                 .HasKey(x => x.Id);
 
             builder
+                .Property(x => x.Name)
+                .HasColumnType("VARCHAR(100)")
+                .HasMaxLength(100)
+                .IsRequired();
+
+            builder
                 .Property(x => x.Open)
                 .HasColumnType("DATETIME2")
                 .HasDefaultValue(DateTime.Now)

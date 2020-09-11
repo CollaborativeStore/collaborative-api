@@ -52,5 +52,14 @@ namespace Collaborative.Infra.Repository
 
             return await account;
         }
+
+        public async Task<FinancialAccount> GetByName(string name)
+        {
+            var account = _entityContext.FinancialAccounts
+                .Where(x => x.Close.Equals(null) && x.Name.Equals(name))
+                .FirstOrDefaultAsync();
+
+            return await account;
+        }
     }
 }

@@ -56,5 +56,15 @@ namespace Collaborative.Infra.Repository
 
             return await product;
         }
+
+        public async Task<Product> GetByNameAsync(string name)
+        {
+            var product = _entityContext.Products
+                .Where(x => x.DeletionDate.Equals(null) && x.Name.Equals(name))
+                .Include(x => x.Collaborator)
+                .FirstOrDefaultAsync();
+
+            return await product;
+        }
     }
 }

@@ -10,5 +10,9 @@ namespace Collaborative.Domain.Interfaces.Repository
         Task<IEnumerable<Collaborator>> GetAllClosed();
         Task<Collaborator> GetByIdAsync(int id);
         Task<IEnumerable<Collaborator>> GetAllByCollaborativeIdAsync(int id);
+        Task<Collaborator> GetByName(string name);
+        Task<Collaborator> GetByCpf(string cpf);
+        Task<Collaborator> GetByCnpj(string cnpj);
+        Task<Collaborator> GetByMail(string mail);
     }
 }

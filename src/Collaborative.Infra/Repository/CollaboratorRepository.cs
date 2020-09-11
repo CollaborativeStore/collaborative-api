@@ -46,11 +46,51 @@ namespace Collaborative.Infra.Repository
             return await collabs;
         }
 
+        public async Task<Collaborator> GetByCnpj(string cnpj)
+        {
+            var collab = _entityContext.Collaborators
+                .Where(x => x.ClosingDate.Equals(null) && x.CNPJ.Equals(cnpj))
+                .Include(x => x.Collaborative)
+                .FirstOrDefaultAsync();
+
+            return await collab;
+        }
+
+        public async Task<Collaborator> GetByCpf(string cpf)
+        {
+            var collab = _entityContext.Collaborators
+                .Where(x => x.ClosingDate.Equals(null) && x.CPF.Equals(cpf))
+                .Include(x => x.Collaborative)
+                .FirstOrDefaultAsync();
+
+            return await collab;
+        }
+
         public async Task<Collaborator> GetByIdAsync(int id)
         {
             var collab = _entityContext.Collaborators
                 .Where(x => x.ClosingDate.Equals(null) && x.Id.Equals(id))
-                .Include(x => x.Collaborative.Name)
+                .Include(x => x.Collaborative)
+                .FirstOrDefaultAsync();
+
+            return await collab;
+        }
+
+        public async Task<Collaborator> GetByMail(string mail)
+        {
+            var collab = _entityContext.Collaborators
+                .Where(x => x.ClosingDate.Equals(null) && x.Mail.Equals(mail))
+                .Include(x => x.Collaborative)
+                .FirstOrDefaultAsync();
+
+            return await collab;
+        }
+
+        public async Task<Collaborator> GetByName(string name)
+        {
+            var collab = _entityContext.Collaborators
+                .Where(x => x.ClosingDate.Equals(null) && x.Name.Equals(name))
+                .Include(x => x.Collaborative)
                 .FirstOrDefaultAsync();
 
             return await collab;

@@ -16,11 +16,6 @@ namespace Collaborative.Infra.Mappings
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.Quantity)
-                .HasColumnType("INT")
-                .IsRequired();
-
-            builder
                 .HasOne(x => x.Collaborative)
                 .WithOne(x => x.Stock)
                 .HasForeignKey<Collab>(x => x.StockId);

@@ -9,6 +9,7 @@ namespace Collaborative.Domain.Models
         public DateTime CreationDate { get; set; }
         public DateTime? DeletionDate { get; set; }
         public decimal UnityPrice { get; set; }
+        public int Quantity { get; set; }
 
         public int CollaboratorId { get; set; }
         public Collaborator Collaborator { get; set; }

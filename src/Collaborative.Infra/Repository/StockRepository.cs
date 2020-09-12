@@ -32,6 +32,7 @@ namespace Collaborative.Infra.Repository
             var stock = _entityContext.Stocks
                 .Where(x => x.Collaborative.Id.Equals(id))
                 .Include(x => x.Collaborative)
+                .Include(x => x.Products)
                 .FirstOrDefaultAsync();
 
             return await stock;
@@ -42,6 +43,18 @@ namespace Collaborative.Infra.Repository
             var stock = _entityContext.Stocks
                 .Where(x => x.Id.Equals(id))
                 .Include(x => x.Collaborative)
+                .Include(x => x.Products)
+                .FirstOrDefaultAsync();
+
+            return await stock;
+        }
+
+        public async Task<Stock> GetByNameAsync(string name)
+        {
+            var stock = _entityContext.Stocks
+                .Where(x => x.Name.Equals(name))
+                .Include(x => x.Collaborative)
+                .Include(x => x.Products)
                 .FirstOrDefaultAsync();
 
             return await stock;

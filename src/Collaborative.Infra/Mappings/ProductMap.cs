@@ -28,6 +28,11 @@ namespace Collaborative.Infra.Mappings
                 .IsRequired();
 
             builder
+                .Property(x => x.Quantity)
+                .HasColumnType("INT")
+                .IsRequired();
+
+            builder
                 .Property(x => x.DeletionDate)
                 .HasColumnType("DATETIME2")
                 .HasDefaultValue(null);

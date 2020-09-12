@@ -24,6 +24,11 @@ namespace Collaborative.Domain.Validation.ProductValidation
                 .NotNull()
                 .WithMessage("Unity price cannot be null or empty");
 
+            RuleFor(x => x.Quantity)
+                .NotEmpty()
+                .NotNull()
+                .WithMessage("Quantity cannot be null or empty");
+
             RuleFor(x => x)
                 .MustAsync(ValidationName)
                 .WithMessage("Name is being used");

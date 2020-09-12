@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Collaborative.Domain.Models
+﻿namespace Collaborative.Domain.Models
 {
     public class OrderProduct
     {

@@ -14,6 +14,7 @@ namespace Collaborative.Infra.Context
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<OrderProduct> orderProducts { get; set; }
 
         public EntityContext(DbContextOptions<EntityContext> options) 
             : base (options) { }
@@ -29,6 +30,7 @@ namespace Collaborative.Infra.Context
             modelBuilder.ApplyConfiguration(new PaymentMap());
             modelBuilder.ApplyConfiguration(new ProductMap());
             modelBuilder.ApplyConfiguration(new StockMap());
+            modelBuilder.ApplyConfiguration(new OrderProductMap());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -15,8 +15,7 @@ namespace Collaborative.Domain.Models
 
         public List<Payment> Payments { get; set; }
 
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-        public List<Product> Products { get; set; }
+        public List<OrderProduct> Products { get; set; }
+
     }
 }

@@ -48,12 +48,6 @@ namespace Collaborative.Infra.Mappings
                 .WithMany(x => x.Products)
                 .HasForeignKey(x => x.StockId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .HasOne(x => x.Order)
-                .WithMany(x => x.Products)
-                .HasForeignKey(x => x.OrderId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

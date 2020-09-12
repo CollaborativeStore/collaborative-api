@@ -37,10 +37,11 @@ namespace Collaborative.Infra.Mappings
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(x => x.Product)
-                .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.ProductId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasMany(x => x.Products)
+                .WithOne(x => x.Order)
+                .HasForeignKey(x => x.OrderId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

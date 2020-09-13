@@ -1,3 +1,4 @@
+using AutoMapper;
 using Collaborative.API.DependencyInjection;
 using Collaborative.Infra.Context;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +28,8 @@ namespace Collaborative.API
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.ResolveDependencies();
         }

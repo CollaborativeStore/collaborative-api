@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Swagger\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 
@@ -17,6 +16,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.5.1" />
   </ItemGroup>
 
   <ItemGroup>

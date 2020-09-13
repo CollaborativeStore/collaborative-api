@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="AutoMapper\" />
     <Folder Include="Controllers\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Swagger\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>

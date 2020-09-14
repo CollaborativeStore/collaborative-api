@@ -8,6 +8,7 @@ namespace Collaborative.Domain.Models
 
         public string Name { get; set; }
 
+        public int CollaborativeId { get; set; }
         public Collaborative Collaborative { get; set; }
          
         public List<Product> Products { get; set; }

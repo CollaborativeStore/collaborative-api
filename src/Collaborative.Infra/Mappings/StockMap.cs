@@ -18,7 +18,7 @@ namespace Collaborative.Infra.Mappings
             builder
                 .HasOne(x => x.Collaborative)
                 .WithOne(x => x.Stock)
-                .HasForeignKey<Collab>(x => x.StockId);
+                .HasForeignKey<Stock>(x => x.CollaborativeId);
         }
     }
 }

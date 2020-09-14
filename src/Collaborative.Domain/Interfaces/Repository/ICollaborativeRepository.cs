@@ -4,7 +4,7 @@ using Collab = Collaborative.Domain.Models.Collaborative;
 
 namespace Collaborative.Domain.Interfaces.Repository
 {
-    public interface ICollaborativeRepository
+    public interface ICollaborativeRepository : IBaseRepository<Collab>
     {
         Task<IEnumerable<Collab>> GetAllAsync();
         Task<Collab> GetByIdAsync(int id);

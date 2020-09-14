@@ -4,14 +4,16 @@ using Collaborative.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Collaborative.Infra.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    partial class EntityContextModelSnapshot : ModelSnapshot
+    [Migration("20200914203605_ReWorkDB")]
+    partial class ReWorkDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +48,7 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 14, 19, 4, 33, 26, DateTimeKind.Local).AddTicks(5806));
+                        .HasDefaultValue(new DateTime(2020, 9, 14, 17, 36, 5, 300, DateTimeKind.Local).AddTicks(391));
 
                     b.Property<string>("Mail")
                         .HasColumnType("VARCHAR(100)")
@@ -72,6 +74,9 @@ namespace Collaborative.Infra.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StockId")
+                        .IsUnique();
 
                     b.ToTable("Collaborative");
                 });
@@ -106,7 +111,7 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 14, 19, 4, 33, 26, DateTimeKind.Local).AddTicks(6839));
+                        .HasDefaultValue(new DateTime(2020, 9, 14, 17, 36, 5, 300, DateTimeKind.Local).AddTicks(1410));
 
                     b.Property<string>("Mail")
                         .IsRequired()
@@ -159,7 +164,7 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("Open")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 14, 19, 4, 33, 26, DateTimeKind.Local).AddTicks(7994));
+                        .HasDefaultValue(new DateTime(2020, 9, 14, 17, 36, 5, 300, DateTimeKind.Local).AddTicks(2630));
 
                     b.HasKey("Id");
 
@@ -181,7 +186,7 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("Ordered")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 14, 19, 4, 33, 26, DateTimeKind.Local).AddTicks(8883));
+                        .HasDefaultValue(new DateTime(2020, 9, 14, 17, 36, 5, 300, DateTimeKind.Local).AddTicks(3565));
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -277,7 +282,7 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 14, 19, 4, 33, 27, DateTimeKind.Local).AddTicks(8938));
+                        .HasDefaultValue(new DateTime(2020, 9, 14, 17, 36, 5, 301, DateTimeKind.Local).AddTicks(827));
 
                     b.Property<DateTime?>("DeletionDate")
                         .ValueGeneratedOnAdd()
@@ -314,18 +319,21 @@ namespace Collaborative.Infra.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CollaborativeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CollaborativeId")
-                        .IsUnique();
-
                     b.ToTable("Stock");
+                });
+
+            modelBuilder.Entity("Collaborative.Domain.Models.Collaborative", b =>
+                {
+                    b.HasOne("Collaborative.Domain.Models.Stock", "Stock")
+                        .WithOne("Collaborative")
+                        .HasForeignKey("Collaborative.Domain.Models.Collaborative", "StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Collaborative.Domain.Models.Collaborator", b =>
@@ -397,15 +405,6 @@ namespace Collaborative.Infra.Migrations
                         .WithMany("Products")
                         .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Collaborative.Domain.Models.Stock", b =>
-                {
-                    b.HasOne("Collaborative.Domain.Models.Collaborative", "Collaborative")
-                        .WithOne("Stock")
-                        .HasForeignKey("Collaborative.Domain.Models.Stock", "CollaborativeId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

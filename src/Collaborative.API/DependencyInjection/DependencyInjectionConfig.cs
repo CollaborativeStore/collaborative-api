@@ -1,6 +1,10 @@
-﻿using Collaborative.Domain.Interfaces.Repository;
+﻿using Collaborative.API.Services;
+using Collaborative.API.Services.Interfaces;
+using Collaborative.Domain.Interfaces.Repository;
+using Collaborative.Domain.Interfaces.UoW;
 using Collaborative.Infra.Context;
 using Collaborative.Infra.Repository;
+using Collaborative.Infra.UoW;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Collaborative.API.DependencyInjection
@@ -19,6 +23,12 @@ namespace Collaborative.API.DependencyInjection
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IStockRepository, StockRepository>();
+
+            services.AddScoped<ICollaborativeService, CollaborativeService>();
+
+
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

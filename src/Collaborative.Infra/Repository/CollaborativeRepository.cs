@@ -8,11 +8,11 @@ using Collab = Collaborative.Domain.Models.Collaborative;
 
 namespace Collaborative.Infra.Repository
 {
-    public class CollaborativeRepository : ICollaborativeRepository
+    public class CollaborativeRepository : BaseRepository<Collab>, ICollaborativeRepository
     {
         private EntityContext _entityContext;
 
-        public CollaborativeRepository(EntityContext entityContext)
+        public CollaborativeRepository(EntityContext entityContext) : base (entityContext)
         {
             _entityContext = entityContext;
         }

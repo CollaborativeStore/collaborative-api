@@ -96,7 +96,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
         {
             var collabMail = collab.Mail;
 
-            if (IsValidEmail(collabMail))
+            if (!IsValidEmail(collabMail))
                 return false;
 
             var collaborativeRepository = await _collaborativeRepository.GetByMail(collab.Mail);

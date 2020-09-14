@@ -1,5 +1,6 @@
 using AutoMapper;
 using Collaborative.API.DependencyInjection;
+using Collaborative.API.Swagger;
 using Collaborative.Infra.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace Collaborative.API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddSwaggerConfig();
+
             services.AddAutoMapper(typeof(Startup));
 
             services.ResolveDependencies();
@@ -45,6 +48,8 @@ namespace Collaborative.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSwaggerConfig();
 
             app.UseAuthorization();
 

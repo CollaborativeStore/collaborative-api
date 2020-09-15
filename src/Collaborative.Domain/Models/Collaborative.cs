@@ -5,12 +5,33 @@ namespace Collaborative.Domain.Models
 {
     public class Collaborative : Person
     {
+        public Collaborative() { }
+
+        public Collaborative(int id, string name, string phone, string phone2, string cpf, string cnpj, string mail)
+        {
+            Id = id;
+            Name = name;
+            Phone = phone;
+            Phone2 = phone2;
+            CPF = cpf;
+            CNPJ = cnpj;
+            Mail = mail;
+        }
+
+        public Collaborative(string name, string phone, string phone2, string cpf, string cnpj, string mail)
+        {
+            Name = name;
+            Phone = phone;
+            Phone2 = phone2;
+            CPF = cpf;
+            CNPJ = cnpj;
+            Mail = mail;
+        }
+
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime? ClosingDate { get; set; }
 
-
-        public int StockId { get; set; }
         public Stock Stock { get; set; }
 
         public List<Collaborator> Collaborators { get; set; }

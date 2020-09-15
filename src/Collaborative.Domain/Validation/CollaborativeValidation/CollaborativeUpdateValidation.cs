@@ -16,7 +16,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
         public CollaborativeUpdateValidation(ICollaborativeRepository collaborativeRepository)
         {
             _collaborativeRepository = collaborativeRepository;
-
+            
             RuleFor(x => x.Id)
                 .NotNull()
                 .NotEmpty()
@@ -36,19 +36,19 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
                 .NotNull()
                 .WithMessage("Phone cannot be null or empty");
 
-            RuleFor(x => x.CPF)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("CPF cannot be null or empty");
+            //RuleFor(x => x.CPF)
+            //    .NotEmpty()
+            //    .NotNull()
+            //    .WithMessage("CPF cannot be null or empty");
 
             RuleFor(x => x)
                 .MustAsync(ValidationCpf)
                 .WithMessage("CPF is being used or invalid format");
 
-            RuleFor(x => x.CNPJ)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("CNPJ cannot be null or empty");
+            //RuleFor(x => x.CNPJ)
+            //    .NotEmpty()
+            //    .NotNull()
+            //    .WithMessage("CNPJ cannot be null or empty");
 
             RuleFor(x => x)
                 .MustAsync(ValidationCnpj)
@@ -73,28 +73,38 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
 
         private async Task<bool> ValidationCpf(Collab collab, CancellationToken cancellationToken)
         {
-            var collabCpf = collab.CPF;
-            var regex = "([0-9]{11})";
+            if (collab.CPF != null && collab.CNPJ == null || collab.CPF != null && collab.CNPJ != null)
+            {
+                var collabCpf = collab.CPF;
+                var regex = "([0-9]{11})";
 
-            if (!Regex.IsMatch(collabCpf, regex))
-                return false;
+                if (!Regex.IsMatch(collabCpf, regex))
+                    return false;
 
-            var collaborativeRepository = await _collaborativeRepository.GetByCpf(collab.CPF);
+                var collaborativeRepository = await _collaborativeRepository.GetByCpf(collab.CPF);
 
-            return collaborativeRepository?.Id != collab.Id ? false : true;
+                return collaborativeRepository?.Id != collab.Id ? false : true;
+            }
+
+            return true;
         }
 
         private async Task<bool> ValidationCnpj(Collab collab, CancellationToken cancellationToken)
         {
-            var collabCnpj = collab.CNPJ;
-            var regex = "([0-9]{14})";
+            if (collab.CPF == null && collab.CNPJ != null || collab.CPF != null && collab.CNPJ != null)
+            {
+                var collabCnpj = collab.CNPJ;
+                var regex = "([0-9]{14})";
 
-            if (!Regex.IsMatch(collabCnpj, regex))
-                return false;
+                if (!Regex.IsMatch(collabCnpj, regex))
+                    return false;
 
-            var collaborativeRepository = await _collaborativeRepository.GetByCnpj(collab.CNPJ);
+                var collaborativeRepository = await _collaborativeRepository.GetByCnpj(collab.CNPJ);
 
-            return collaborativeRepository?.Id != collab.Id ? false : true;
+                return collaborativeRepository?.Id != collab.Id ? false : true;
+            }
+
+            return true; 
         }
 
         private async Task<bool> ValidationMail(Collab collab, CancellationToken cancellationToken)

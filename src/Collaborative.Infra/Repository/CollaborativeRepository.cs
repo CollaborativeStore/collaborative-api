@@ -19,11 +19,11 @@ namespace Collaborative.Infra.Repository
 
         public async Task<IEnumerable<Collab>> GetAllAsync()
         {
-            var collabs = _entityContext.Collaboratives
-                .Where(x => x.ClosingDate.Equals(null))
+            var collabs = await _entityContext.Collaboratives
+                .Where(x => x.ClosingDate == null)
                 .ToListAsync();
 
-            return await collabs;
+            return collabs;
                
         }
 
@@ -39,7 +39,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collab> GetByCnpj(string cnpj)
         {
             var collab = _entityContext.Collaboratives
-                .Where(x => x.CNPJ.Equals(cnpj) && x.ClosingDate.Equals(null))
+                .Where(x => x.CNPJ.Equals(cnpj) && x.ClosingDate == null)
                 .FirstOrDefaultAsync();
 
             return await collab;
@@ -48,7 +48,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collab> GetByCpf(string cpf)
         {
             var collab = _entityContext.Collaboratives
-                .Where(x => x.CPF.Equals(cpf) && x.ClosingDate.Equals(null))
+                .Where(x => x.CPF.Equals(cpf) && x.ClosingDate == null)
                 .FirstOrDefaultAsync();
 
             return await collab;
@@ -56,17 +56,17 @@ namespace Collaborative.Infra.Repository
 
         public async Task<Collab> GetByIdAsync(int id)
         {
-            var collab = _entityContext.Collaboratives
-                .Where(x => x.Id.Equals(id) && x.ClosingDate.Equals(null))
+            var collab = await _entityContext.Collaboratives
+                .Where(x => x.Id.Equals(id) && x.ClosingDate == null)
                 .FirstOrDefaultAsync();
 
-            return await collab;
+            return collab;
         }
 
         public async Task<Collab> GetByName(string name)
         {
             var collab = _entityContext.Collaboratives
-                .Where(x => x.Name.ToLower().Equals(name.ToLower()) && x.ClosingDate.Equals(null))
+                .Where(x => x.Name.ToLower().Equals(name.ToLower()) && x.ClosingDate == null)
                 .FirstOrDefaultAsync();
 
             return await collab;
@@ -75,7 +75,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collab> GetByMail(string mail)
         {
             var collab = _entityContext.Collaboratives
-                .Where(x => x.Mail.Equals(mail) && x.ClosingDate.Equals(null))
+                .Where(x => x.Mail.Equals(mail) && x.ClosingDate == null)
                 .FirstOrDefaultAsync();
 
             return await collab;

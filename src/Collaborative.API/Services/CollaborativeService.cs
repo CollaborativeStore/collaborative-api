@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Collaborative.API.Services.Interfaces;
 using Collaborative.API.ViewModels;
+using Collaborative.API.ViewModels.Collaborative;
 using Collaborative.Domain.Interfaces.Repository;
 using Collaborative.Domain.Interfaces.UoW;
 using Collaborative.Domain.Validation.CollaborativeValidation;
@@ -24,6 +25,19 @@ namespace Collaborative.API.Services
             _unitOfWork = unitOfWork;
         }
 
+
+        public async Task<IEnumerable<CollaborativeViewModel>> GetAllAsync()
+        {
+            return _mapper.Map<IEnumerable<CollaborativeViewModel>>(await _collaborativeRepository.GetAllAsync());
+        }
+
+        public async Task<CollaborativeViewModel> GetByIdAsync(CollaborativeIdViewModel collaborativeIdViewModel)
+        {
+            var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByIdAsync(collaborativeIdViewModel.Id));
+
+            return collab;
+        }
+
         public CollaborativeViewModel Add(CollaborativeViewModel collaborativeViewModel)
         {
             CollaborativeViewModel viewModel = null;
@@ -45,29 +59,41 @@ namespace Collaborative.API.Services
             return viewModel;
 
         }
-
-        public async Task<IEnumerable<CollaborativeViewModel>> GetAllAsync()
+        
+        public async Task<CollaborativeViewModel> Remove(CollaborativeIdViewModel collaborativeIdViewModel)
         {
-            var collabs = _mapper.Map<IEnumerable<CollaborativeViewModel>>(await _collaborativeRepository.GetAllAsync());
+            var model = await _collaborativeRepository.GetByIdAsync(collaborativeIdViewModel.Id);
+            model.ClosingDate = DateTime.Now;
 
-            return collabs;
-        }
+            var validationDel = new CollaborativeDeleteValidation().Validate(model);
 
-        public async Task<CollaborativeViewModel> GetByIdAsync(int id)
-        {
-            var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByIdAsync(id));
+            if (!validationDel.IsValid)
+            {
+                return null;
+            }
 
-            return collab;
-        }
 
-        public void remove(CollaborativeViewModel collaborativeViewModel)
-        {
-            throw new NotImplementedException();
+            _collaborativeRepository.Update(model);
+            _unitOfWork.Commit();
+
+            var viewModel = _mapper.Map<CollaborativeViewModel>(model);
+            
+            return viewModel;
         }
 
         public void Update(CollaborativeViewModel collaborativeViewModel)
         {
-            throw new NotImplementedException();
+            var model = _mapper.Map<Collab>(collaborativeViewModel);
+
+            var validation = new CollaborativeUpdateValidation(_collaborativeRepository).Validate(model);
+
+            if (!validation.IsValid)
+            {
+                return;
+            }
+
+            _collaborativeRepository.Update(model);
+            _unitOfWork.Commit();
         }
     }
 }

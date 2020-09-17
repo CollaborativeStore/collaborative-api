@@ -39,7 +39,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collab> GetByCnpj(string cnpj)
         {
             var collab = _entityContext.Collaboratives
-                .Where(x => x.CNPJ.Equals(cnpj) && x.ClosingDate == null)
+                .Where(x => x.CNPJ == cnpj && x.ClosingDate == null)
                 .FirstOrDefaultAsync();
 
             return await collab;
@@ -48,7 +48,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collab> GetByCpf(string cpf)
         {
             var collab = _entityContext.Collaboratives
-                .Where(x => x.CPF.Equals(cpf) && x.ClosingDate == null)
+                .Where(x => x.CPF == cpf && x.ClosingDate == null)
                 .FirstOrDefaultAsync();
 
             return await collab;

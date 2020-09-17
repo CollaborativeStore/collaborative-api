@@ -12,5 +12,11 @@ namespace Collaborative.API.Services.Interfaces
         CollaborativeViewModel Add(CollaborativeViewModel collaborativeViewModel);
         void Update(CollaborativeViewModel collaborativeViewModel);
         Task<CollaborativeViewModel> Remove(CollaborativeIdViewModel collaborativeIdViewModel);
+        Task<CollaborativeViewModel> GetByCpfAsync(CollaborativeCpfViewModel collaborativeCpfViewModel);
+        Task<CollaborativeViewModel> GetByCnpjAsync(CollaborativeCnpjViewModel collaborativeCnpjViewModel);
+        Task<CollaborativeViewModel> GetByNameAsync(CollaborativeNameViewModel collaborativeNameViewModel);
+        Task<CollaborativeViewModel> GetByMailAsync(CollaborativeMailViewModel collaborativeMailViewModel);
+        Task<IEnumerable<CollaborativeViewModel>> GetAllClosedAsync();
+
     }
 }

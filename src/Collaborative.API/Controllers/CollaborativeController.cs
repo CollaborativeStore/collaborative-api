@@ -23,10 +23,68 @@ namespace Collaborative.API.Controllers
             return Ok(await _collaborativeService.GetAllAsync());
         }
 
+        [HttpGet("closed")]
+        public async Task<ActionResult<IEnumerable<CollaborativeViewModel>>> GetAllClosed()
+        {
+            return Ok(await _collaborativeService.GetAllClosedAsync());
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<CollaborativeViewModel>> GetById([FromQuery] CollaborativeIdViewModel collaborativeIdViewModel)
         {
             var collabVM = await _collaborativeService.GetByIdAsync(collaborativeIdViewModel);
+
+            if (collabVM == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(collabVM);
+        }
+
+        [HttpGet("cpf/{cpf}")]
+        public async Task<ActionResult<CollaborativeViewModel>> GetByCpf([FromQuery] CollaborativeCpfViewModel collaborativeCpfViewModel)
+        {
+            var collabVM = await _collaborativeService.GetByCpfAsync(collaborativeCpfViewModel);
+
+            if (collabVM == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(collabVM);
+        }
+
+        [HttpGet("cnpj/{cnpj}")]
+        public async Task<ActionResult<CollaborativeViewModel>> GetByCNPJ([FromQuery] CollaborativeCnpjViewModel collaborativeCnpjViewModel)
+        {
+            var collabVM = await _collaborativeService.GetByCnpjAsync(collaborativeCnpjViewModel);
+
+            if (collabVM == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(collabVM);
+        }
+
+        [HttpGet("name/{name}")]
+        public async Task<ActionResult<CollaborativeViewModel>> GetByName([FromQuery] CollaborativeNameViewModel collaborativeNameViewModel)
+        {
+            var collabVM = await _collaborativeService.GetByNameAsync(collaborativeNameViewModel);
+
+            if (collabVM == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(collabVM);
+        }
+
+        [HttpGet("mail/{mail}")]
+        public async Task<ActionResult<CollaborativeViewModel>> GetByMail([FromQuery] CollaborativeMailViewModel collaborativeMailViewModel)
+        {
+            var collabVM = await _collaborativeService.GetByMailAsync(collaborativeMailViewModel);
 
             if (collabVM == null)
             {

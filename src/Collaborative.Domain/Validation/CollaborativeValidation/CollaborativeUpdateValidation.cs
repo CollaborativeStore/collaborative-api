@@ -81,7 +81,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
                 if (!Regex.IsMatch(collabCpf, regex))
                     return false;
 
-                var collaborativeRepository = await _collaborativeRepository.GetByCpf(collab.CPF);
+                var collaborativeRepository = await _collaborativeRepository.GetByIdAsync(collab.Id);
 
                 return collaborativeRepository?.Id != collab.Id ? false : true;
             }
@@ -89,7 +89,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
             return true;
         }
 
-        private async Task<bool> ValidationCnpj(Collab collab, CancellationToken cancellationToken)
+    private async Task<bool> ValidationCnpj(Collab collab, CancellationToken cancellationToken)
         {
             if (collab.CPF == null && collab.CNPJ != null || collab.CPF != null && collab.CNPJ != null)
             {
@@ -99,7 +99,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
                 if (!Regex.IsMatch(collabCnpj, regex))
                     return false;
 
-                var collaborativeRepository = await _collaborativeRepository.GetByCnpj(collab.CNPJ);
+                var collaborativeRepository = await _collaborativeRepository.GetByIdAsync(collab.Id);
 
                 return collaborativeRepository?.Id != collab.Id ? false : true;
             }
@@ -111,7 +111,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
         {
             var collabMail = collab.Mail;
 
-            if (IsValidEmail(collabMail))
+            if (!IsValidEmail(collabMail))
                 return false;
 
             var collaborativeRepository = await _collaborativeRepository.GetByMail(collab.Mail);

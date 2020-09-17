@@ -30,6 +30,13 @@ namespace Collaborative.API.Services
         {
             return _mapper.Map<IEnumerable<CollaborativeViewModel>>(await _collaborativeRepository.GetAllAsync());
         }
+        
+        public async Task<IEnumerable<CollaborativeViewModel>> GetAllClosedAsync()
+        {
+            var collabs = _mapper.Map<IEnumerable<CollaborativeViewModel>>(await _collaborativeRepository.GetAllClosed());
+
+            return collabs;
+        }
 
         public async Task<CollaborativeViewModel> GetByIdAsync(CollaborativeIdViewModel collaborativeIdViewModel)
         {
@@ -37,7 +44,35 @@ namespace Collaborative.API.Services
 
             return collab;
         }
+        
+        public async Task<CollaborativeViewModel> GetByCpfAsync(CollaborativeCpfViewModel collaborativeCpfViewModel)
+        {
+            var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByCpf(collaborativeCpfViewModel.CPF));
 
+            return collab;
+        }
+        
+        public async Task<CollaborativeViewModel> GetByCnpjAsync(CollaborativeCnpjViewModel collaborativeCnpjViewModel)
+        {
+            var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByCnpj(collaborativeCnpjViewModel.CNPJ));
+
+            return collab;
+        }
+
+        public async Task<CollaborativeViewModel> GetByNameAsync(CollaborativeNameViewModel collaborativeNameViewModel)
+        {
+            var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByName(collaborativeNameViewModel.Name));
+
+            return collab;
+        }
+        
+        public async Task<CollaborativeViewModel> GetByMailAsync(CollaborativeMailViewModel collaborativeMailViewModel)
+        {
+            var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByMail(collaborativeMailViewModel.Mail));
+
+            return collab;
+        }
+        
         public CollaborativeViewModel Add(CollaborativeViewModel collaborativeViewModel)
         {
             CollaborativeViewModel viewModel = null;

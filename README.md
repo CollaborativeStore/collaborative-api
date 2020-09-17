@@ -1,7 +1,5 @@
 # Projeto ErrorCenter
 
-![](https://github.com/wizsolucoes/api-wiz-template/workflows/.NET%20Core/badge.svg) 
-
 ## Sumário
 
 * [Estrutura](#Estrutura)

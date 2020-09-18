@@ -21,6 +21,7 @@ namespace Collaborative.Infra.Repository
         {
             var collabs = await _entityContext.Collaboratives
                 .Where(x => x.ClosingDate == null)
+                .AsNoTracking()
                 .ToListAsync();
 
             return collabs;
@@ -31,6 +32,7 @@ namespace Collaborative.Infra.Repository
         {
             var collabs = _entityContext.Collaboratives
                 .Where(x => x.ClosingDate != null)
+                .AsNoTracking()
                 .ToListAsync();
 
             return await collabs;
@@ -40,6 +42,7 @@ namespace Collaborative.Infra.Repository
         {
             var collab = _entityContext.Collaboratives
                 .Where(x => x.CNPJ == cnpj && x.ClosingDate == null)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return await collab;
@@ -49,6 +52,7 @@ namespace Collaborative.Infra.Repository
         {
             var collab = _entityContext.Collaboratives
                 .Where(x => x.CPF == cpf && x.ClosingDate == null)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return await collab;
@@ -58,6 +62,7 @@ namespace Collaborative.Infra.Repository
         {
             var collab = await _entityContext.Collaboratives
                 .Where(x => x.Id.Equals(id) && x.ClosingDate == null)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return collab;
@@ -66,7 +71,8 @@ namespace Collaborative.Infra.Repository
         public async Task<Collab> GetByName(string name)
         {
             var collab = _entityContext.Collaboratives
-                .Where(x => x.Name.ToLower().Equals(name.ToLower()) && x.ClosingDate == null)
+                .Where(x => x.Name == name && x.ClosingDate == null)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return await collab;
@@ -76,6 +82,7 @@ namespace Collaborative.Infra.Repository
         {
             var collab = _entityContext.Collaboratives
                 .Where(x => x.Mail.Equals(mail) && x.ClosingDate == null)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return await collab;

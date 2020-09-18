@@ -1,6 +1,8 @@
 ﻿using Collaborative.Domain.Models;
 using Collaborative.Infra.Mappings;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using Collab = Collaborative.Domain.Models.Collaborative;
 
 namespace Collaborative.Infra.Context

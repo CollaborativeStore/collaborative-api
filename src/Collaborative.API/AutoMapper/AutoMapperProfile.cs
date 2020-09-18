@@ -11,6 +11,8 @@ namespace Collaborative.API.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<collab, CollaborativeViewModel>().ReverseMap();
+            CreateMap<collab, CollaborativeInsertViewModel>().ReverseMap();
+            
             CreateMap<Collaborator, CollaboratorViewModel>().ReverseMap();
             CreateMap<FinancialAccount, FinancialAccountViewModel>().ReverseMap();
             CreateMap<OrderProduct, OrderProductViewModel>().ReverseMap();

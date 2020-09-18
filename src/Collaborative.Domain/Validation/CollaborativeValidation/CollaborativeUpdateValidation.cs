@@ -16,7 +16,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
         public CollaborativeUpdateValidation(ICollaborativeRepository collaborativeRepository)
         {
             _collaborativeRepository = collaborativeRepository;
-            
+
             RuleFor(x => x.Id)
                 .NotNull()
                 .NotEmpty()
@@ -36,19 +36,9 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
                 .NotNull()
                 .WithMessage("Phone cannot be null or empty");
 
-            //RuleFor(x => x.CPF)
-            //    .NotEmpty()
-            //    .NotNull()
-            //    .WithMessage("CPF cannot be null or empty");
-
             RuleFor(x => x)
                 .MustAsync(ValidationCpf)
                 .WithMessage("CPF is being used or invalid format");
-
-            //RuleFor(x => x.CNPJ)
-            //    .NotEmpty()
-            //    .NotNull()
-            //    .WithMessage("CNPJ cannot be null or empty");
 
             RuleFor(x => x)
                 .MustAsync(ValidationCnpj)
@@ -68,7 +58,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
         {
             var collaborativeRepository = await _collaborativeRepository.GetByName(collab.Name);
 
-            return collaborativeRepository?.Id != collab.Id ? false : true;
+            return collaborativeRepository?.Id == collab.Id ? false : true;
         }
 
         private async Task<bool> ValidationCpf(Collab collab, CancellationToken cancellationToken)
@@ -89,7 +79,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
             return true;
         }
 
-    private async Task<bool> ValidationCnpj(Collab collab, CancellationToken cancellationToken)
+        private async Task<bool> ValidationCnpj(Collab collab, CancellationToken cancellationToken)
         {
             if (collab.CPF == null && collab.CNPJ != null || collab.CPF != null && collab.CNPJ != null)
             {

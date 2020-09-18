@@ -73,11 +73,11 @@ namespace Collaborative.API.Services
             return collab;
         }
         
-        public CollaborativeViewModel Add(CollaborativeViewModel collaborativeViewModel)
+        public CollaborativeViewModel Add(CollaborativeInsertViewModel collaborativeInsertViewModel)
         {
             CollaborativeViewModel viewModel = null;
 
-            var model = _mapper.Map<Collab>(collaborativeViewModel);
+            var model = _mapper.Map<Collab>(collaborativeInsertViewModel);
 
             var validation = new CollaborativeInsertValidation(_collaborativeRepository).Validate(model);
 
@@ -95,7 +95,7 @@ namespace Collaborative.API.Services
 
         }
         
-        public async Task<CollaborativeViewModel> Remove(CollaborativeIdViewModel collaborativeIdViewModel)
+        public async Task<CollaborativeViewModel> Remove( CollaborativeIdViewModel collaborativeIdViewModel)
         {
             var model = await _collaborativeRepository.GetByIdAsync(collaborativeIdViewModel.Id);
             model.ClosingDate = DateTime.Now;
@@ -116,9 +116,11 @@ namespace Collaborative.API.Services
             return viewModel;
         }
 
-        public void Update(CollaborativeViewModel collaborativeViewModel)
+        public void Update(int id, CollaborativeInsertViewModel collaborativeInsertViewModel)
         {
-            var model = _mapper.Map<Collab>(collaborativeViewModel);
+            var model = _mapper.Map<Collab>(collaborativeInsertViewModel);
+
+            model.Id = id;
 
             var validation = new CollaborativeUpdateValidation(_collaborativeRepository).Validate(model);
 

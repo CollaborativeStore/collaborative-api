@@ -95,7 +95,7 @@ namespace Collaborative.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<CollaborativeViewModel> PostCollaborative([FromBody] CollaborativeViewModel collaborative)
+        public ActionResult<CollaborativeViewModel> PostCollaborative([FromBody] CollaborativeInsertViewModel collaborative)
         {
             if (collaborative == null)
             {
@@ -106,13 +106,8 @@ namespace Collaborative.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutCollaborative(int id, [FromBody] CollaborativeViewModel collaborative)
+        public async Task<ActionResult> PutCollaborative(int id, [FromBody] CollaborativeInsertViewModel collaborative)
         {
-            if (collaborative == null || collaborative.Id != id)
-            {
-                return BadRequest();
-            }
-
             var collab = await _collaborativeService.GetByIdAsync(new CollaborativeIdViewModel(id));
 
             if (collab == null)
@@ -120,7 +115,7 @@ namespace Collaborative.API.Controllers
                 return NotFound();
             }
 
-            _collaborativeService.Update(collaborative);
+            _collaborativeService.Update(id, collaborative);
 
             return NoContent();
         }

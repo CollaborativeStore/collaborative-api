@@ -9,8 +9,8 @@ namespace Collaborative.API.Services.Interfaces
     {
         Task<IEnumerable<CollaborativeViewModel>> GetAllAsync();
         Task<CollaborativeViewModel> GetByIdAsync(CollaborativeIdViewModel collaborativeIdViewModel);
-        CollaborativeViewModel Add(CollaborativeViewModel collaborativeViewModel);
-        void Update(CollaborativeViewModel collaborativeViewModel);
+        CollaborativeViewModel Add(CollaborativeInsertViewModel collaborativeInsertViewModel);
+        void Update(int id, CollaborativeInsertViewModel collaborativeInsertViewModel);
         Task<CollaborativeViewModel> Remove(CollaborativeIdViewModel collaborativeIdViewModel);
         Task<CollaborativeViewModel> GetByCpfAsync(CollaborativeCpfViewModel collaborativeCpfViewModel);
         Task<CollaborativeViewModel> GetByCnpjAsync(CollaborativeCnpjViewModel collaborativeCnpjViewModel);

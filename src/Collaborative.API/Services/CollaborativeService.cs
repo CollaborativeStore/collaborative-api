@@ -44,7 +44,7 @@ namespace Collaborative.API.Services
 
             return collab;
         }
-        
+
         public async Task<CollaborativeViewModel> GetByCpfAsync(CollaborativeCpfViewModel collaborativeCpfViewModel)
         {
             var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByCpf(collaborativeCpfViewModel.CPF));

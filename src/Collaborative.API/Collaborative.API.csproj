@@ -21,9 +21,5 @@
     <ProjectReference Include="..\Collaborative.Infra\Collaborative.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\Collaborator\" />
-  </ItemGroup>
-
 
 </Project>

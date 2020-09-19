@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Collaborative.API.ViewModels;
 using Collaborative.API.ViewModels.Collaborative;
+using Collaborative.API.ViewModels.Collaborator;
 using Collaborative.Domain.Models;
 using collab = Collaborative.Domain.Models.Collaborative;
 

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Collaborative.Domain.Validation.CollaborativeValidation
+namespace Collaborative.Domain.Validation.CollaboratorValidation
 {
     public class CollaboratorInsertValidation : AbstractValidator<Collaborator>
     {

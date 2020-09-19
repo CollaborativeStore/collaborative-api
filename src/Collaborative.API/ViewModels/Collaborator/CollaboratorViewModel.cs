@@ -1,4 +1,6 @@
-﻿namespace Collaborative.API.ViewModels.Collaborator
+﻿using Collaborative.API.ViewModels.Collaborative;
+
+namespace Collaborative.API.ViewModels.Collaborator
 {
     public class CollaboratorViewModel
     {
@@ -22,5 +24,6 @@
         public string CPF { get; set; }
         public string CNPJ { get; set; }
         public string Mail { get; set; }
+        public CollaborativeViewModel Collaborative { get; set; }
     }
 }

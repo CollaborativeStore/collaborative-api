@@ -10,9 +10,10 @@ namespace Collaborative.Infra.Repository
 {
     public class CollaborativeRepository : BaseRepository<Collab>, ICollaborativeRepository
     {
-        private EntityContext _entityContext;
+        private readonly EntityContext _entityContext;
 
-        public CollaborativeRepository(EntityContext entityContext) : base (entityContext)
+        public CollaborativeRepository(EntityContext entityContext) 
+            : base (entityContext)
         {
             _entityContext = entityContext;
         }

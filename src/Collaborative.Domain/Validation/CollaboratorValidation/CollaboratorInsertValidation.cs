@@ -31,19 +31,9 @@ namespace Collaborative.Domain.Validation.CollaboratorValidation
                 .NotNull()
                 .WithMessage("Phone cannot be null or empty");
 
-            RuleFor(x => x.CPF)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("CPF cannot be null or empty");
-
             RuleFor(x => x)
                 .MustAsync(ValidationCpf)
                 .WithMessage("CPF is being used or invalid format");
-
-            RuleFor(x => x.CNPJ)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("CNPJ cannot be null or empty");
 
             RuleFor(x => x)
                 .MustAsync(ValidationCnpj)
@@ -68,6 +58,11 @@ namespace Collaborative.Domain.Validation.CollaboratorValidation
 
         private async Task<bool> ValidationCpf(Collaborator collab, CancellationToken cancellationToken)
         {
+            if (collab.CNPJ == null)
+            {
+                return true;
+            }
+
             var collabCpf = collab.CPF;
             var regex = "([0-9]{11})";
 
@@ -81,6 +76,11 @@ namespace Collaborative.Domain.Validation.CollaboratorValidation
 
         private async Task<bool> ValidationCnpj(Collaborator collab, CancellationToken cancellationToken)
         {
+            if (collab.CNPJ == null)
+            {
+                return true;
+            }
+
             var collabCnpj = collab.CNPJ;
             var regex = "([0-9]{14})";
 
@@ -96,7 +96,7 @@ namespace Collaborative.Domain.Validation.CollaboratorValidation
         {
             var collabMail = collab.Mail;
 
-            if (IsValidEmail(collabMail))
+            if (!IsValidEmail(collabMail))
                 return false;
 
             var collaboratorRepository = await _collaboratorRepository.GetByMail(collab.Mail);

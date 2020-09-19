@@ -14,7 +14,6 @@ namespace Collaborative.API.DependencyInjection
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
             services.AddScoped<EntityContext>();
-
             services.AddScoped<ICollaborativeRepository, CollaborativeRepository>();
             services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
             services.AddScoped<IFinancialAccountRepository, FinancialAccountRepository>();
@@ -25,7 +24,7 @@ namespace Collaborative.API.DependencyInjection
             services.AddScoped<IStockRepository, StockRepository>();
 
             services.AddScoped<ICollaborativeService, CollaborativeService>();
-
+            services.AddScoped<ICollaboratorService, CollaboratorService>();
 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

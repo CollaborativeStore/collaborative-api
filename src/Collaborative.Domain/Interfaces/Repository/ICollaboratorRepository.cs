@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Collaborative.Domain.Interfaces.Repository
 {
-    public interface ICollaboratorRepository
+    public interface ICollaboratorRepository : IBaseRepository<Collaborator>
     {
         Task<IEnumerable<Collaborator>> GetAllAsync();
         Task<IEnumerable<Collaborator>> GetAllClosed();

@@ -8,11 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Collaborative.Infra.Repository
 {
-    public class CollaboratorRepository : BaseRepository<Collaborator>, ICollaboratorRepository
+    public class CollaboratorRepository :  BaseRepository<Collaborator>, ICollaboratorRepository
     {
-        private EntityContext _entityContext;
+        private readonly EntityContext _entityContext;
 
-        public CollaboratorRepository(EntityContext entityContext) : base (entityContext)
+        public CollaboratorRepository(EntityContext entityContext) 
+            : base (entityContext)
         {
             _entityContext = entityContext;
         }
@@ -21,7 +22,7 @@ namespace Collaborative.Infra.Repository
         {
             var collabs = _entityContext.Collaborators
                 .Where(x => x.ClosingDate == null )
-                .Include(x => x.Collaborative.Name)
+                .Include(x => x.Collaborative)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -42,7 +43,7 @@ namespace Collaborative.Infra.Repository
         {
             var collabs = _entityContext.Collaborators
                 .Where(x => x.ClosingDate != null)
-                .Include(x => x.Collaborative.Name)
+                .Include(x => x.Collaborative)
                 .AsNoTracking()
                 .ToListAsync();
 

@@ -80,9 +80,7 @@ namespace Collaborative.API.Services
             _collaboratorRepository.Add(model);
             _unitOfWork.Commit();
 
-            var viewModel = _mapper.Map<CollaboratorViewModel>(model);
-
-            return viewModel;
+            return _mapper.Map<CollaboratorViewModel>(model);
         }
 
         public async Task<CollaboratorViewModel> Remove(CollaboratorIdViewModel collaboratorIdViewModel)
@@ -105,7 +103,7 @@ namespace Collaborative.API.Services
             return viewModel;
         }
 
-        public CollaboratorViewModel Update(int id, CollaboratorInsertViewModel collaboratorInsertViewModel)
+        public void Update(int id, CollaboratorInsertViewModel collaboratorInsertViewModel)
         {
             var model = _mapper.Map<Collaborator>(collaboratorInsertViewModel);
             model.Id = id;
@@ -114,16 +112,11 @@ namespace Collaborative.API.Services
 
             if (!validation.IsValid)
             {
-                return null;
+                return;
             }
 
             _collaboratorRepository.Update(model);
             _unitOfWork.Commit();
-
-            var viewModel = _mapper.Map<CollaboratorViewModel>(model);
-
-            return viewModel;
-
         }
     }
 }

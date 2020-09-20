@@ -53,7 +53,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collaborator> GetByCnpj(string cnpj)
         {
             var collab = _entityContext.Collaborators
-                .Where(x => x.ClosingDate == null && x.CNPJ.Equals(cnpj))
+                .Where(x => x.ClosingDate == null && x.CNPJ == cnpj)
                 .Include(x => x.Collaborative)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
@@ -64,7 +64,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collaborator> GetByCpf(string cpf)
         {
             var collab = _entityContext.Collaborators
-                .Where(x => x.ClosingDate == null && x.CPF.Equals(cpf))
+                .Where(x => x.ClosingDate == null && x.CPF == cpf)
                 .Include(x => x.Collaborative)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
@@ -86,7 +86,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collaborator> GetByMail(string mail)
         {
             var collab = _entityContext.Collaborators
-                .Where(x => x.ClosingDate == null && x.Mail.Equals(mail))
+                .Where(x => x.ClosingDate == null && x.Mail == mail)
                 .Include(x => x.Collaborative)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
@@ -97,7 +97,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collaborator> GetByName(string name)
         {
             var collab = _entityContext.Collaborators
-                .Where(x => x.ClosingDate == null && x.Name.Equals(name))
+                .Where(x => x.ClosingDate == null && x.Name == name)
                 .Include(x => x.Collaborative)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();

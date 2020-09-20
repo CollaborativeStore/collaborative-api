@@ -121,7 +121,7 @@ namespace Collaborative.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete([FromQuery] CollaborativeIdViewModel collaborative)
+        public async Task<ActionResult> DeleteCollaborative([FromQuery] CollaborativeIdViewModel collaborative)
         {
 
             var result = await _collaborativeService.Remove(collaborative);

@@ -58,7 +58,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
         {
             var collaborativeRepository = await _collaborativeRepository.GetByName(collab.Name);
 
-            return collaborativeRepository?.Id == collab.Id ? false : true;
+            return collaborativeRepository != null ? false : true;
         }
 
         private async Task<bool> ValidationCpf(Collab collab, CancellationToken cancellationToken)

@@ -16,7 +16,7 @@ namespace Collaborative.API.Services.Interfaces
         Task<CollaboratorViewModel> GetByMailAsync(CollaboratorMailViewModel collaboratorMailViewModel);
         Task<CollaboratorViewModel> GetByNameAsync(CollaboratorNameViewModel collaboratorNameViewModel);
 
-        CollaboratorViewModel Add(CollaboratorInsertViewModel collaboratorInsertViewModel);
+        Task<CollaboratorViewModel> Add(CollaboratorInsertViewModel collaboratorInsertViewModel);
         Task<CollaboratorViewModel> Remove(CollaboratorIdViewModel collaboratorIdViewModel);
         void Update(int id, CollaboratorInsertViewModel collaboratorInsertViewModel);
     }

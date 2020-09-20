@@ -15,12 +15,14 @@ namespace Collaborative.API.Services
     public class CollaboratorService : ICollaboratorService
     {
         private readonly ICollaboratorRepository _collaboratorRepository;
+        private readonly ICollaborativeRepository _collaborativeRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CollaboratorService(ICollaboratorRepository collaboratorRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public CollaboratorService(ICollaborativeRepository collaborativeRepository, ICollaboratorRepository collaboratorRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _collaboratorRepository = collaboratorRepository;
+            _collaborativeRepository = collaborativeRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
@@ -40,6 +42,11 @@ namespace Collaborative.API.Services
             return _mapper.Map<IEnumerable<CollaboratorViewModel>>(await _collaboratorRepository.GetAllClosed());
         }
 
+        public async Task<CollaboratorViewModel> GetByIdAsync(CollaboratorIdViewModel collaboratorIdViewModel)
+        {
+            return _mapper.Map<CollaboratorViewModel>(await _collaboratorRepository.GetByIdAsync(collaboratorIdViewModel.Id));
+        }
+
         public async Task<CollaboratorViewModel> GetByCnpjAsync(CollaboratorCnpjViewModel collaboratorCnpjViewModel)
         {
             return _mapper.Map<CollaboratorViewModel>(await _collaboratorRepository.GetByCnpj(collaboratorCnpjViewModel.CNPJ));
@@ -48,11 +55,6 @@ namespace Collaborative.API.Services
         public async Task<CollaboratorViewModel> GetByCpfAsync(CollaboratorCpfViewModel collaboratorCpfViewModel)
         {
             return _mapper.Map<CollaboratorViewModel>(await _collaboratorRepository.GetByCpf(collaboratorCpfViewModel.CPF));
-        }
-
-        public async Task<CollaboratorViewModel> GetByIdAsync(CollaboratorIdViewModel collaboratorIdViewModel)
-        {
-            return _mapper.Map<CollaboratorViewModel>(await _collaboratorRepository.GetByIdAsync(collaboratorIdViewModel.Id));
         }
 
         public async Task<CollaboratorViewModel> GetByMailAsync(CollaboratorMailViewModel collaboratorMailViewModel)
@@ -65,9 +67,15 @@ namespace Collaborative.API.Services
             return _mapper.Map<CollaboratorViewModel>(await _collaboratorRepository.GetByName(collaboratorNameViewModel.Name));
         }
         
-        
-        public CollaboratorViewModel Add(CollaboratorInsertViewModel collaboratorInsertViewModel)
+        public async Task<CollaboratorViewModel> Add(CollaboratorInsertViewModel collaboratorInsertViewModel)
         {
+            var collaborative = await _collaborativeRepository.GetByIdAsync(collaboratorInsertViewModel.CollaborativeId);
+            
+            if (collaborative == null)
+            {
+                throw new Exception("Collaborative not found!");
+            }
+
             var model = _mapper.Map<Collaborator>(collaboratorInsertViewModel);
 
             var validation = new CollaboratorInsertValidation(_collaboratorRepository).Validate(model);
@@ -77,8 +85,11 @@ namespace Collaborative.API.Services
                 throw new Exception("Collaborator is invalid!");
             }
 
+
             _collaboratorRepository.Add(model);
             _unitOfWork.Commit();
+            
+            model.Collaborative = collaborative;
 
             return _mapper.Map<CollaboratorViewModel>(model);
         }
@@ -86,6 +97,12 @@ namespace Collaborative.API.Services
         public async Task<CollaboratorViewModel> Remove(CollaboratorIdViewModel collaboratorIdViewModel)
         {
             var model = await _collaboratorRepository.GetByIdAsync(collaboratorIdViewModel.Id);
+
+            if (model == null)
+            {
+                throw new Exception("Collaborator not found!");
+            }
+
             model.ClosingDate = DateTime.Now;
 
             var validation = new CollaboratorDeleteValidation().Validate(model);

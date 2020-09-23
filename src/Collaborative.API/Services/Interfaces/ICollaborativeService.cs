@@ -15,7 +15,7 @@ namespace Collaborative.API.Services.Interfaces
         Task<IEnumerable<CollaborativeViewModel>> GetAllClosedAsync();
 
         CollaborativeViewModel Add(CollaborativeInsertViewModel collaborativeInsertViewModel);
-        void Update(int id, CollaborativeInsertViewModel collaborativeInsertViewModel);
+        bool Update(int id, CollaborativeInsertViewModel collaborativeInsertViewModel);
         Task<CollaborativeViewModel> Remove(CollaborativeIdViewModel collaborativeIdViewModel);
     }
 }

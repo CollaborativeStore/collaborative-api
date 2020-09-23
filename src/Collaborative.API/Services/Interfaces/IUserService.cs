@@ -1,6 +1,4 @@
-﻿using Collaborative.API.ViewModels.User;
-using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Collaborative.API.Services.Interfaces
 {
@@ -8,5 +6,6 @@ namespace Collaborative.API.Services.Interfaces
     {
         Task<bool> CreateUserAsync(T t);
         Task<bool> DeleteUserAsync(string name);
+        Task<bool> UpdateUserAsync(string name);
     }
 }

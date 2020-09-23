@@ -53,5 +53,24 @@ namespace Collaborative.API.Services
 
             return true;
         }
+
+        public async Task<bool> UpdateUserAsync(string lastName)
+        {
+            var user = await _userManager.FindByNameAsync(lastName);
+
+            if (user == null)
+            {
+                throw new Exception("User do not exists!");
+            }
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(result.ToString());
+            }
+
+            return true;
+        }
     }
 }

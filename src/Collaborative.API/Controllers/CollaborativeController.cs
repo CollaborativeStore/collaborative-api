@@ -133,7 +133,26 @@ namespace Collaborative.API.Controllers
                 return NotFound();
             }
 
-            _collaborativeService.Update(id, collaborative);
+            var updateModel = _collaborativeService.Update(id, collaborative);
+
+            if (!updateModel == true)
+            {
+                return BadRequest();
+            }
+
+            var deleteUser = await _userService.DeleteUserAsync(collab.Email);
+
+            if (!deleteUser == true)
+            {
+                return BadRequest();
+            }
+
+            var updateUser = await _userService.CreateUserAsync(collaborative);
+
+            if (!updateUser == true)
+            {
+                return BadRequest();
+            }
 
             return NoContent();
         }
@@ -141,6 +160,12 @@ namespace Collaborative.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCollaborative([FromQuery] CollaborativeIdViewModel collaborative)
         {
+            var model = await _collaborativeService.GetByIdAsync(collaborative);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
 
             var result = await _collaborativeService.Remove(collaborative);
 
@@ -149,8 +174,16 @@ namespace Collaborative.API.Controllers
                 return NotFound();
             }
 
+            var deleteUser = await _userService.DeleteUserAsync(model.Email);
+
+            if (!deleteUser == true)
+            {
+                return BadRequest();
+            }
+
             return NoContent();
 
         }
     }
 }
+ 

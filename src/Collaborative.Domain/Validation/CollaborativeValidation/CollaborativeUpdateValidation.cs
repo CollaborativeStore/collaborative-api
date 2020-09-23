@@ -58,7 +58,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
         {
             var collaborativeRepository = await _collaborativeRepository.GetByName(collab.Name);
 
-            return collaborativeRepository != null ? false : true;
+            return collab.Id != collaborativeRepository.Id ? false : true;
         }
 
         private async Task<bool> ValidationCpf(Collab collab, CancellationToken cancellationToken)
@@ -104,7 +104,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
             if (!IsValidEmail(collabMail))
                 return false;
 
-            var collaborativeRepository = await _collaborativeRepository.GetByMail(collab.Email);
+            var collaborativeRepository = await _collaborativeRepository.GetByIdAsync(collab.Id);
 
             return collaborativeRepository?.Id != collab.Id ? false : true;
         }

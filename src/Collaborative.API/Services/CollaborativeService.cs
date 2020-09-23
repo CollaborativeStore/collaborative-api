@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Collaborative.API.Services.Interfaces;
-using Collaborative.API.ViewModels;
 using Collaborative.API.ViewModels.Collaborative;
 using Collaborative.Domain.Interfaces.Repository;
 using Collaborative.Domain.Interfaces.UoW;
 using Collaborative.Domain.Validation.CollaborativeValidation;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,21 +16,19 @@ namespace Collaborative.API.Services
         private readonly ICollaborativeRepository _collaborativeRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IUserService<CollaborativeInsertViewModel> _userService;
 
-        public CollaborativeService(ICollaborativeRepository collaborativeRepository, IMapper mapper, IUnitOfWork unitOfWork, IUserService<CollaborativeInsertViewModel> userService)
+        public CollaborativeService(ICollaborativeRepository collaborativeRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _collaborativeRepository = collaborativeRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _userService = userService;
         }
 
         public async Task<IEnumerable<CollaborativeViewModel>> GetAllAsync()
         {
             return _mapper.Map<IEnumerable<CollaborativeViewModel>>(await _collaborativeRepository.GetAllAsync());
         }
-        
+
         public async Task<IEnumerable<CollaborativeViewModel>> GetAllClosedAsync()
         {
             var collabs = _mapper.Map<IEnumerable<CollaborativeViewModel>>(await _collaborativeRepository.GetAllClosed());
@@ -118,7 +114,7 @@ namespace Collaborative.API.Services
             return viewModel;
         }
 
-        public void Update(int id, CollaborativeInsertViewModel collaborativeInsertViewModel)
+        public bool Update(int id, CollaborativeInsertViewModel collaborativeInsertViewModel)
         {
             var model = _mapper.Map<Collab>(collaborativeInsertViewModel);
 
@@ -128,11 +124,13 @@ namespace Collaborative.API.Services
 
             if (!validation.IsValid)
             {
-                return;
+                return false;
             }
 
             _collaborativeRepository.Update(model);
             _unitOfWork.Commit();
+
+            return true;
         }
     }
 }

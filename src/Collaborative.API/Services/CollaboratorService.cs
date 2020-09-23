@@ -59,7 +59,7 @@ namespace Collaborative.API.Services
 
         public async Task<CollaboratorViewModel> GetByMailAsync(CollaboratorMailViewModel collaboratorMailViewModel)
         {
-            return _mapper.Map<CollaboratorViewModel>(await _collaboratorRepository.GetByMail(collaboratorMailViewModel.Mail));
+            return _mapper.Map<CollaboratorViewModel>(await _collaboratorRepository.GetByMail(collaboratorMailViewModel.Email));
         }
 
         public async Task<CollaboratorViewModel> GetByNameAsync(CollaboratorNameViewModel collaboratorNameViewModel)

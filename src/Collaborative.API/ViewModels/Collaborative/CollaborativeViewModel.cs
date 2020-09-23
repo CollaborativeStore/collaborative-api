@@ -12,7 +12,7 @@
             Phone2 = phone2;
             CPF = cpf;
             CNPJ = cnpj;
-            Mail = mail;
+            Email = mail;
         }
 
         public CollaborativeViewModel(string name, string phone, string phone2, string cpf, string cnpj, string mail)
@@ -22,7 +22,7 @@
             Phone2 = phone2;
             CPF = cpf;
             CNPJ = cnpj;
-            Mail = mail;
+            Email = mail;
         }
 
         public int Id { get; set; }
@@ -31,6 +31,6 @@
         public string Phone2 { get; set; }
         public string CPF { get; set; }
         public string CNPJ { get; set; }
-        public string Mail { get; set; }
+        public string Email { get; set; }
     }
 }

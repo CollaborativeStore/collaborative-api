@@ -82,7 +82,7 @@ namespace Collaborative.Infra.Repository
         public async Task<Collab> GetByMail(string mail)
         {
             var collab = _entityContext.Collaboratives
-                .Where(x => x.Mail.Equals(mail) && x.ClosingDate == null)
+                .Where(x => x.Email == mail && x.ClosingDate == null)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 

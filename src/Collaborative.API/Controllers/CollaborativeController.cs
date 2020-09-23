@@ -11,10 +11,12 @@ namespace Collaborative.API.Controllers
     public class CollaborativeController : ControllerBase
     {
         private readonly ICollaborativeService _collaborativeService;
+        private readonly IUserService<CollaborativeInsertViewModel> _userService;
 
-        public CollaborativeController(ICollaborativeService collaborativeService)
+        public CollaborativeController(ICollaborativeService collaborativeService, IUserService<CollaborativeInsertViewModel> userService)
         {
             _collaborativeService = collaborativeService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -95,14 +97,30 @@ namespace Collaborative.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<CollaborativeViewModel> PostCollaborative([FromBody] CollaborativeInsertViewModel collaborative)
+        public async Task<ActionResult<CollaborativeViewModel>> PostCollaborative([FromBody] CollaborativeInsertViewModel collaborative)
         {
             if (collaborative == null)
             {
                 return NotFound();
             }
 
-            return Created(nameof(GetById), _collaborativeService.Add(collaborative));
+            var result = await _userService.CreateUserAsync(collaborative);
+
+            if (!result == true)
+            {
+                return BadRequest();
+            }
+
+            var created = Created(nameof(GetById), _collaborativeService.Add(collaborative));
+
+            if (created.Value == null)
+            {
+                await _userService.DeleteUserAsync(collaborative.Email);
+
+                return BadRequest();
+            }
+
+            return created;
         }
 
         [HttpPut("{id}")]

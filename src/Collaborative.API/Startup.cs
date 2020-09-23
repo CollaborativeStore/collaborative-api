@@ -4,6 +4,7 @@ using Collaborative.API.Swagger;
 using Collaborative.Infra.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,12 +30,17 @@ namespace Collaborative.API
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            
             services.AddSwaggerConfig();
 
             services.AddAutoMapper(typeof(Startup));
 
             services.ResolveDependencies();
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<EntityContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +56,8 @@ namespace Collaborative.API
             app.UseRouting();
 
             app.UseSwaggerConfig();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

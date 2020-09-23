@@ -7,6 +7,6 @@
         public string Phone2 { get; set; }
         public string CPF { get; set; }
         public string CNPJ { get; set; }
-        public string Mail { get; set; }
+        public string Email { get; set; }
     }
 }

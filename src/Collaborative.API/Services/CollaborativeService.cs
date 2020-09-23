@@ -5,6 +5,7 @@ using Collaborative.API.ViewModels.Collaborative;
 using Collaborative.Domain.Interfaces.Repository;
 using Collaborative.Domain.Interfaces.UoW;
 using Collaborative.Domain.Validation.CollaborativeValidation;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,14 +18,15 @@ namespace Collaborative.API.Services
         private readonly ICollaborativeRepository _collaborativeRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserService<CollaborativeInsertViewModel> _userService;
 
-        public CollaborativeService(ICollaborativeRepository collaborativeRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public CollaborativeService(ICollaborativeRepository collaborativeRepository, IMapper mapper, IUnitOfWork unitOfWork, IUserService<CollaborativeInsertViewModel> userService)
         {
             _collaborativeRepository = collaborativeRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _userService = userService;
         }
-
 
         public async Task<IEnumerable<CollaborativeViewModel>> GetAllAsync()
         {
@@ -68,7 +70,7 @@ namespace Collaborative.API.Services
         
         public async Task<CollaborativeViewModel> GetByMailAsync(CollaborativeMailViewModel collaborativeMailViewModel)
         {
-            var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByMail(collaborativeMailViewModel.Mail));
+            var collab = _mapper.Map<CollaborativeViewModel>(await _collaborativeRepository.GetByMail(collaborativeMailViewModel.Email));
 
             return collab;
         }
@@ -83,16 +85,16 @@ namespace Collaborative.API.Services
 
             if (!validation.IsValid)
             {
-                throw new Exception("Collaborative is invalid!");
+                return viewModel;
             }
 
             _collaborativeRepository.Add(model);
+            
             _unitOfWork.Commit();
-
+            
             viewModel = _mapper.Map<CollaborativeViewModel>(model);
-
+            
             return viewModel;
-
         }
         
         public async Task<CollaborativeViewModel> Remove( CollaborativeIdViewModel collaborativeIdViewModel)

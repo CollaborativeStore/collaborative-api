@@ -4,14 +4,16 @@ using Collaborative.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Collaborative.Infra.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    partial class EntityContextModelSnapshot : ModelSnapshot
+    [Migration("20200923135958_Identity")]
+    partial class Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +48,9 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 23, 11, 39, 1, 506, DateTimeKind.Local).AddTicks(576));
+                        .HasDefaultValue(new DateTime(2020, 9, 23, 10, 59, 58, 643, DateTimeKind.Local).AddTicks(2726));
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Mail")
                         .HasColumnType("VARCHAR(100)")
                         .HasMaxLength(100);
 
@@ -103,9 +105,9 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 23, 11, 39, 1, 506, DateTimeKind.Local).AddTicks(1567));
+                        .HasDefaultValue(new DateTime(2020, 9, 23, 10, 59, 58, 643, DateTimeKind.Local).AddTicks(3729));
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Mail")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)")
                         .HasMaxLength(100);
@@ -156,7 +158,7 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("Open")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 23, 11, 39, 1, 506, DateTimeKind.Local).AddTicks(2571));
+                        .HasDefaultValue(new DateTime(2020, 9, 23, 10, 59, 58, 643, DateTimeKind.Local).AddTicks(4794));
 
                     b.HasKey("Id");
 
@@ -178,7 +180,7 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("Ordered")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 23, 11, 39, 1, 506, DateTimeKind.Local).AddTicks(3328));
+                        .HasDefaultValue(new DateTime(2020, 9, 23, 10, 59, 58, 643, DateTimeKind.Local).AddTicks(5608));
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -274,7 +276,7 @@ namespace Collaborative.Infra.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME2")
-                        .HasDefaultValue(new DateTime(2020, 9, 23, 11, 39, 1, 506, DateTimeKind.Local).AddTicks(9261));
+                        .HasDefaultValue(new DateTime(2020, 9, 23, 10, 59, 58, 645, DateTimeKind.Local).AddTicks(4318));
 
                     b.Property<DateTime?>("DeletionDate")
                         .ValueGeneratedOnAdd()

@@ -9,11 +9,11 @@ namespace Collaborative.API.ViewModels.Collaborative
 
         public CollaborativeMailViewModel(string mail)
         {
-            Mail = mail;
+            Email = mail;
         }
 
         [FromRoute(Name = "mail")]
         [Required(ErrorMessage = "Mail is required!")]
-        public string Mail { get; set; }
+        public string Email { get; set; }
     }
 }

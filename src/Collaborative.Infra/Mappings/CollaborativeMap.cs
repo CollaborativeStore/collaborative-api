@@ -44,7 +44,7 @@ namespace Collaborative.Infra.Mappings
                 .HasMaxLength(14);
 
             builder
-                .Property(x => x.Mail)
+                .Property(x => x.Email)
                 .HasColumnType("VARCHAR(100)")
                 .HasMaxLength(100);
 

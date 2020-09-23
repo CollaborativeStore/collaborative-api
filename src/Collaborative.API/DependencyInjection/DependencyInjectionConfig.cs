@@ -1,5 +1,7 @@
 ﻿using Collaborative.API.Services;
 using Collaborative.API.Services.Interfaces;
+using Collaborative.API.ViewModels.Collaborative;
+using Collaborative.API.ViewModels.Collaborator;
 using Collaborative.Domain.Interfaces.Repository;
 using Collaborative.Domain.Interfaces.UoW;
 using Collaborative.Infra.Context;
@@ -25,6 +27,9 @@ namespace Collaborative.API.DependencyInjection
 
             services.AddScoped<ICollaborativeService, CollaborativeService>();
             services.AddScoped<ICollaboratorService, CollaboratorService>();
+
+            services.AddScoped<IUserService<CollaborativeInsertViewModel>, UserService<CollaborativeInsertViewModel>>();
+            services.AddScoped<IUserService<CollaboratorInsertViewModel>, UserService<CollaboratorInsertViewModel>>();
 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -49,7 +49,7 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
                 .MustAsync(ValidationCnpj)
                 .WithMessage("CNPJ is being used or invalid format");
 
-            RuleFor(x => x.Mail)
+            RuleFor(x => x.Email)
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("Mail cannot be null or empty");
@@ -104,14 +104,14 @@ namespace Collaborative.Domain.Validation.CollaborativeValidation
 
         private async Task<bool> ValidationMail(Collab collab, CancellationToken cancellationToken)
         {
-            var collabMail = collab.Mail;
+            var collabMail = collab.Email;
 
             if (!IsValidEmail(collabMail))
                 return false;
 
-            var collaborativeRepository = await _collaborativeRepository.GetByMail(collab.Mail);
+            var collaborativeRepository = await _collaborativeRepository.GetByMail(collab.Email);
 
-            return collabMail != collaborativeRepository?.Mail;
+            return collabMail != collaborativeRepository?.Email;
         }
 
         private bool IsValidEmail(string email)

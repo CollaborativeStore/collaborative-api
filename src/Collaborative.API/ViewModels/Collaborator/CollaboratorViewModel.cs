@@ -14,7 +14,7 @@ namespace Collaborative.API.ViewModels.Collaborator
             Phone2 = phone2;
             CPF = cPF;
             CNPJ = cNPJ;
-            Mail = mail;
+            Email = mail;
         }
 
         public int Id { get; set; }
@@ -23,7 +23,7 @@ namespace Collaborative.API.ViewModels.Collaborator
         public string Phone2 { get; set; }
         public string CPF { get; set; }
         public string CNPJ { get; set; }
-        public string Mail { get; set; }
+        public string Email { get; set; }
         public CollaborativeViewModel Collaborative { get; set; }
     }
 }

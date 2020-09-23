@@ -1,13 +1,12 @@
 ﻿using Collaborative.Domain.Models;
 using Collaborative.Infra.Mappings;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using Collab = Collaborative.Domain.Models.Collaborative;
 
 namespace Collaborative.Infra.Context
 {
-    public class EntityContext : DbContext
+    public class EntityContext : IdentityDbContext
     {
         public DbSet<Collab> Collaboratives { get; set; }
         public DbSet<Collaborator> Collaborators { get; set; }

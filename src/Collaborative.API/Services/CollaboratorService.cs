@@ -18,13 +18,15 @@ namespace Collaborative.API.Services
         private readonly ICollaborativeRepository _collaborativeRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserRepository _user;
 
-        public CollaboratorService(ICollaborativeRepository collaborativeRepository, ICollaboratorRepository collaboratorRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public CollaboratorService(ICollaboratorRepository collaboratorRepository, ICollaborativeRepository collaborativeRepository, IMapper mapper, IUnitOfWork unitOfWork, IUserRepository user)
         {
             _collaboratorRepository = collaboratorRepository;
             _collaborativeRepository = collaborativeRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _user = user;
         }
 
         public async Task<IEnumerable<CollaboratorViewModel>> GetAllAsync()
@@ -69,7 +71,7 @@ namespace Collaborative.API.Services
         
         public async Task<CollaboratorViewModel> Add(CollaboratorInsertViewModel collaboratorInsertViewModel)
         {
-            var collaborative = await _collaborativeRepository.GetByIdAsync(collaboratorInsertViewModel.CollaborativeId);
+            var collaborative = await _collaborativeRepository.GetByMail(_user.Email);
             
             if (collaborative == null)
             {
@@ -77,6 +79,8 @@ namespace Collaborative.API.Services
             }
 
             var model = _mapper.Map<Collaborator>(collaboratorInsertViewModel);
+
+            model.CollaborativeId = collaborative.Id;
 
             var validation = new CollaboratorInsertValidation(_collaboratorRepository).Validate(model);
 
@@ -120,7 +124,7 @@ namespace Collaborative.API.Services
             return viewModel;
         }
 
-        public void Update(int id, CollaboratorInsertViewModel collaboratorInsertViewModel)
+        public bool Update(int id, CollaboratorInsertViewModel collaboratorInsertViewModel)
         {
             var model = _mapper.Map<Collaborator>(collaboratorInsertViewModel);
             model.Id = id;
@@ -129,11 +133,13 @@ namespace Collaborative.API.Services
 
             if (!validation.IsValid)
             {
-                return;
+                return false;
             }
 
             _collaboratorRepository.Update(model);
             _unitOfWork.Commit();
+
+            return true;
         }
     }
 }

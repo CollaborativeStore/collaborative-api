@@ -18,6 +18,6 @@ namespace Collaborative.API.Services.Interfaces
 
         Task<CollaboratorViewModel> Add(CollaboratorInsertViewModel collaboratorInsertViewModel);
         Task<CollaboratorViewModel> Remove(CollaboratorIdViewModel collaboratorIdViewModel);
-        void Update(int id, CollaboratorInsertViewModel collaboratorInsertViewModel);
+        bool Update(int id, CollaboratorInsertViewModel collaboratorInsertViewModel);
     }
 }

@@ -12,10 +12,12 @@ namespace Collaborative.API.Controllers
     public class CollaboratorController : ControllerBase
     {
         private readonly ICollaboratorService _collaboratorService;
+        private readonly IUserService<CollaboratorInsertViewModel> _userService;
 
-        public CollaboratorController(ICollaboratorService collaboratorService)
+        public CollaboratorController(ICollaboratorService collaboratorService, IUserService<CollaboratorInsertViewModel> userService)
         {
             _collaboratorService = collaboratorService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -116,7 +118,23 @@ namespace Collaborative.API.Controllers
                 return NotFound();
             }
 
-            return Created(nameof(GetById), await _collaboratorService.Add(collaborator));
+            var result = await _userService.CreateUserAsync(collaborator);
+
+            if (!result == true)
+            {
+                return BadRequest();
+            }
+
+            var created = Created(nameof(GetById), await _collaboratorService.Add(collaborator));
+
+            if (created.Value ==  null)
+            {
+                await _userService.DeleteUserAsync(collaborator.Email);
+
+                return BadRequest();
+            }
+
+            return created;
         }
 
         [HttpPut("{id}")]
@@ -129,7 +147,26 @@ namespace Collaborative.API.Controllers
                 return NotFound();
             }
 
-            _collaboratorService.Update(id, collaborator);
+            var updateModel = _collaboratorService.Update(id, collaborator);
+
+            if (!updateModel == true)
+            {
+                return BadRequest();
+            }
+
+            var deleteUser = await _userService.DeleteUserAsync(collab.Email);
+
+            if (!deleteUser == true)
+            {
+                return BadRequest();
+            }
+
+            var updateUser = await _userService.CreateUserAsync(collaborator);
+
+            if (!updateUser == true)
+            {
+                return BadRequest();
+            }
 
             return NoContent();
         }
@@ -137,11 +174,25 @@ namespace Collaborative.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCollaborator([FromQuery] CollaboratorIdViewModel collaborator)
         {
-            var model = await _collaboratorService.Remove(collaborator);
+            var model = await _collaboratorService.GetByIdAsync(collaborator);
 
             if (model == null)
             {
                 return NotFound();
+            }
+
+            var result = await _collaboratorService.Remove(collaborator);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            var deleteUser = await _userService.DeleteUserAsync(model.Email);
+
+            if (!deleteUser == true)
+            {
+                return BadRequest();
             }
 
             return NoContent();

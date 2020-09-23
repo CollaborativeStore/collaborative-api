@@ -7,6 +7,7 @@ using Collaborative.Domain.Interfaces.UoW;
 using Collaborative.Infra.Context;
 using Collaborative.Infra.Repository;
 using Collaborative.Infra.UoW;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Collaborative.API.DependencyInjection
@@ -16,6 +17,9 @@ namespace Collaborative.API.DependencyInjection
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
             services.AddScoped<EntityContext>();
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICollaborativeRepository, CollaborativeRepository>();
             services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
             services.AddScoped<IFinancialAccountRepository, FinancialAccountRepository>();
@@ -30,7 +34,6 @@ namespace Collaborative.API.DependencyInjection
 
             services.AddScoped<IUserService<CollaborativeInsertViewModel>, UserService<CollaborativeInsertViewModel>>();
             services.AddScoped<IUserService<CollaboratorInsertViewModel>, UserService<CollaboratorInsertViewModel>>();
-
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

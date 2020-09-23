@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Collaborative.API.Services.Interfaces;
-using Collaborative.API.ViewModels.Collaborative;
 using Collaborative.API.ViewModels.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;

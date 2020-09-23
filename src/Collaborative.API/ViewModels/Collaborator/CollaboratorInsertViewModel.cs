@@ -20,6 +20,5 @@
         public string CPF { get; set; }
         public string CNPJ { get; set; }
         public string Email { get; set; }
-        public int CollaborativeId { get; set; }
     }
 }

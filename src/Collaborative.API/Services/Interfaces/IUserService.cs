@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Collaborative.API.ViewModels.User;
+using System.Threading.Tasks;
 
 namespace Collaborative.API.Services.Interfaces
 {

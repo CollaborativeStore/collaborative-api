@@ -7,7 +7,6 @@ using Collaborative.Domain.Interfaces.UoW;
 using Collaborative.Infra.Context;
 using Collaborative.Infra.Repository;
 using Collaborative.Infra.UoW;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Collaborative.API.DependencyInjection
@@ -34,6 +33,8 @@ namespace Collaborative.API.DependencyInjection
 
             services.AddScoped<IUserService<CollaborativeInsertViewModel>, UserService<CollaborativeInsertViewModel>>();
             services.AddScoped<IUserService<CollaboratorInsertViewModel>, UserService<CollaboratorInsertViewModel>>();
+
+            services.AddScoped<ISessionService, SessionService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

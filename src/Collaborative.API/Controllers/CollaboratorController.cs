@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using Collaborative.API.Services.Interfaces;
 using Collaborative.API.ViewModels.Collaborative;
 using Collaborative.API.ViewModels.Collaborator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Collaborative.API.Controllers
 {
     [Route("v1/collaborator")]
     [ApiController]
+    [Authorize]
     public class CollaboratorController : ControllerBase
     {
         private readonly ICollaboratorService _collaboratorService;

@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 using Collaborative.API.Services.Interfaces;
 using Collaborative.API.ViewModels.Collaborative;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Collaborative.API.Controllers
 {
     [Route("api/v1/collaborative")]
     [ApiController]
+    [Authorize]
     public class CollaborativeController : ControllerBase
     {
         private readonly ICollaborativeService _collaborativeService;
@@ -97,6 +99,7 @@ namespace Collaborative.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<CollaborativeViewModel>> PostCollaborative([FromBody] CollaborativeInsertViewModel collaborative)
         {
             if (collaborative == null)
